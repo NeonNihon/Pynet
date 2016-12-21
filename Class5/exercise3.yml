@@ -1,0 +1,13 @@
+---  
+- hosts: local
+  vars: 
+  tasks: 
+    - name: Generate config files
+      template: src=/home/dbowman/Pynet/Class5/exercise3.j2
+                  dest=/home/dbowman/Pynet/Class5/exercise3/{{item.hostname}}.txt
+      with_items:
+        - {hostname: pynet-rtr1, vlan_int_1: 11, vlan_int_24: 241, ip_address: 10.10.11.1, default_gateway: 10.10.11.254, snmp_community: pynet-rtr1-ro, snmpv3: True }
+        - {hostname: pynet-rtr2, vlan_int_1: 12, vlan_int_24: 242, ip_address: 10.10.12.1, default_gateway: 10.10.12.254, snmp_community: pynet-rtr2-ro, snmpv3: False }
+        - {hostname: pynet-rtr3, vlan_int_1: 13, vlan_int_24: 243, ip_address: 10.10.13.1, default_gateway: 10.10.13.254, snmp_community: pynet-rtr3-ro, snmpv3: True }
+        - {hostname: pynet-rtr4, vlan_int_1: 14, vlan_int_24: 244, ip_address: 10.10.14.1, default_gateway: 10.10.14.254, snmp_community: pynet-rtr4-ro, snmpv3: False }
+        - {hostname: pynet-rtr5, vlan_int_1: 15, vlan_int_24: 245, ip_address: 10.10.15.1, default_gateway: 10.10.15.254, snmp_community: pynet-rtr5-ro, snmpv3: True }
