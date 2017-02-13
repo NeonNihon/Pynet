@@ -1,0 +1,33 @@
+---
+- name: Exercise4
+  hosts: arista
+
+  tasks:
+    - name: Reset Ethernet3 mode and vlan
+      eos_switchport: name=Ethernet3 mode=access access_vlan=1 trunk_allowed_vlans=1-4094
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+
+    - name: Remove Ethernet3 description
+      eos_interface: name=Ethernet3 description=''
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+
+    - name: Remove VLANs
+      eos_vlan: name={{item.name}} vlanid={{item.vlanid}} state=absent
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+      with_items:
+        - {name: RED, vlanid: 111}
+        - {name: YELLOW, vlanid: 222}
+        - {name: BLUE, vlanid: 333}
+...
